@@ -29,6 +29,8 @@ export const BottomPagination = ({
       { label: 5, value: 5 },
       { label: 10, value: 10 },
       { label: 15, value: 15 },
+      { label: 30, value: 30 },
+      { label: 50, value: 50 },
     ],
   });
 
@@ -37,6 +39,7 @@ export const BottomPagination = ({
       count={count}
       pageSize={pageSize}
       page={currentPage}
+      mt={5}
       onPageChange={(e) => setCurrentPage(e.page)}
       display="flex"
       justifyContent="center"
