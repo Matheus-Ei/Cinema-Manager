@@ -92,7 +92,7 @@ export class UserController {
   };
 
   static update = async (req: Request, res: Response) => {
-    const id = Token.getId(req);
+    const { id } = req.params
     const data = req.body;
 
     try {
@@ -106,9 +106,9 @@ export class UserController {
   };
 
   static destroy = async (req: Request, res: Response) => {
-    try {
-      const id = Token.getId(req);
+    const { id } = req.params
 
+    try {
       await UserService.destroy(Number(id));
 
       return Res.sendByType(res, "deleted");

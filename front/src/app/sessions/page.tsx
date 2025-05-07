@@ -9,31 +9,38 @@ export default () => {
 
   const FIELDS: FormField[] = [
     {
-      label: "Place pattern id",
+      label: "Movie id",
       type: "text",
-      placeholder: String(rowData.placePatternId),
-      name: "placePatternId",
+      placeholder: String(rowData.movieId),
+      name: "movieId",
     },
 
     {
-      label: "Column",
-      placeholder: String(rowData.column),
+      label: "Room id",
       type: "text",
-      name: "column",
+      placeholder: String(rowData.roomId),
+      name: "roomId",
     },
 
     {
-      label: "Row",
-      placeholder: String(rowData.row),
+      label: "Price",
       type: "text",
-      name: "row",
+      placeholder: String(rowData.price),
+      name: "price",
+    },
+
+    {
+      label: "Start date",
+      type: "text",
+      placeholder: String(rowData.startDate),
+      name: "startDate",
     },
   ];
 
   return (
     <Crud
       fields={FIELDS}
-      endpoint="places"
+      endpoint="sessions"
       rowData={{ value: rowData, set: setRowData }}
     />
   );

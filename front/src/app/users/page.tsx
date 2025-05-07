@@ -9,31 +9,38 @@ export default () => {
 
   const FIELDS: FormField[] = [
     {
-      label: "Place pattern id",
+      label: "Name",
       type: "text",
-      placeholder: String(rowData.placePatternId),
-      name: "placePatternId",
+      placeholder: String(rowData.name),
+      name: "name",
     },
 
     {
-      label: "Column",
-      placeholder: String(rowData.column),
+      label: "CPF",
+      placeholder: String(rowData.cpf),
       type: "text",
-      name: "column",
+      name: "cpf",
     },
 
     {
-      label: "Row",
-      placeholder: String(rowData.row),
+      label: "email",
+      placeholder: String(rowData.email),
       type: "text",
-      name: "row",
+      name: "email",
+    },
+
+    {
+      label: "password",
+      placeholder: String(rowData.password),
+      type: "text",
+      name: "password",
     },
   ];
 
   return (
     <Crud
       fields={FIELDS}
-      endpoint="places"
+      endpoint="users"
       rowData={{ value: rowData, set: setRowData }}
     />
   );

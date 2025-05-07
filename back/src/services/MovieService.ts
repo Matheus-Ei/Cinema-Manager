@@ -15,7 +15,7 @@ export class MovieService {
   static create = async (req: Request) => {
     const { image } = req.files as any;
 
-    const movies = await MoviesModel.create({ ...req.body })
+    const movies = await MoviesModel.create({ ...req.body });
 
     const filePath = await Files.save(image, {
       table: "movies",

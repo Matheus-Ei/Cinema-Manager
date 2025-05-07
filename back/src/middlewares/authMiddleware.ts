@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { ENV } from "../core/enviroment";
+import { Res } from "../utils/response";
 
 export const authMiddleware = (
   req: Request,
@@ -8,6 +9,9 @@ export const authMiddleware = (
   next: NextFunction,
 ) => {
   try {
+    const ignorePath = ["/users", "/users/auth"];
+    if (ignorePath.includes(req.path)) return next();
+
     const token = req.headers.authorization as string;
     const stringToken = token.split(" ")[1];
 
@@ -18,10 +22,9 @@ export const authMiddleware = (
     if (decoded.id) {
       return next();
     } else {
-      res.status(403);
-      return;
+      return Res.sendByType(res, "forbidden");
     }
   } catch (error) {
-    res.status(500).send({ error });
+    return Res.sendByType(res, "internalError", error);
   }
 };

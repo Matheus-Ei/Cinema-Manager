@@ -6,6 +6,7 @@ import cors from "cors";
 import { ENV } from "./core/enviroment";
 import { models } from "./core/models";
 import fileUpload from "express-fileupload";
+import { authMiddleware } from "./middlewares/authMiddleware";
 
 class Server {
   public app: Application = express();
@@ -39,6 +40,8 @@ class Server {
     );
 
     this.app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+
+    this.app.use(authMiddleware);
   };
 
   routes = () => {

@@ -16,24 +16,17 @@ export default () => {
     },
 
     {
-      label: "Column",
-      placeholder: String(rowData.column),
+      label: "Description",
+      placeholder: String(rowData.description),
       type: "text",
-      name: "column",
-    },
-
-    {
-      label: "Row",
-      placeholder: String(rowData.row),
-      type: "text",
-      name: "row",
+      name: "description",
     },
   ];
 
   return (
     <Crud
       fields={FIELDS}
-      endpoint="places"
+      endpoint="rooms"
       rowData={{ value: rowData, set: setRowData }}
     />
   );

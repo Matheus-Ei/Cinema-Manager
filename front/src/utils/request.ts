@@ -1,5 +1,6 @@
 import { ResponseType } from "@/types/global";
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { Storage } from "./storage";
 
 type ReturnType<T> = Promise<T | undefined>;
 type AxiosResponseType<T> = ReturnType<AxiosResponse<{ resource: T }>>;
@@ -37,24 +38,8 @@ export class Request {
     const url = `${this.backendUrl}/${endpoint}`;
 
     try {
-      const response = await axios.get(url, { withCredentials: true });
-      return response;
-    } catch (error) {
-      this.treatError(error as AxiosError);
-    }
-  };
-
-  static postMultipart = async <T>(
-    endpoint: string,
-    formData: object,
-  ): AxiosResponseType<T> => {
-    const url = `${this.backendUrl}/${endpoint}`;
-
-    try {
-      const response = await axios.post(url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${Storage.get("access_token")}` },
         withCredentials: true,
       });
 
@@ -71,7 +56,13 @@ export class Request {
     const url = `${this.backendUrl}/${endpoint}`;
 
     try {
-      const response = await axios.post(url, body, { withCredentials: true });
+      const response = await axios.post(url, body, {
+        headers: {
+          Authorization: `Bearer ${Storage.get("access_token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
       return await response.data;
     } catch (error) {
       this.treatError(error as AxiosError);
@@ -82,7 +73,11 @@ export class Request {
     const url = `${this.backendUrl}/${endpoint}`;
 
     try {
-      const response = await axios.delete(url, { withCredentials: true });
+      const response = await axios.delete(url, {
+        headers: { Authorization: `Bearer ${Storage.get("access_token")}` },
+        withCredentials: true,
+      });
+
       return await response.data;
     } catch (error) {
       this.treatError(error as AxiosError);
@@ -96,7 +91,11 @@ export class Request {
     const url = `${this.backendUrl}/${endpoint}`;
 
     try {
-      const response = await axios.put(url, body, { withCredentials: true });
+      const response = await axios.put(url, body, {
+        headers: { Authorization: `Bearer ${Storage.get("access_token")}` },
+        withCredentials: true,
+      });
+
       return await response.data;
     } catch (error) {
       this.treatError(error as AxiosError);
@@ -110,7 +109,14 @@ export class Request {
     const url = `${this.backendUrl}/${endpoint}`;
 
     try {
-      const response = await axios.patch(url, body, { withCredentials: true });
+      const response = await axios.patch(url, body, {
+        headers: {
+          Authorization: `Bearer ${Storage.get("access_token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
+
       return await response.data;
     } catch (error) {
       this.treatError(error as AxiosError);

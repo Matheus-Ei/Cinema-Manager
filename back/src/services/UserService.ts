@@ -65,7 +65,7 @@ export class UserService {
     if (isMatch) {
       token = Token.generate(
         { id: String(user.dataValues.id) },
-        60,
+        100000000,
         ENV.ACCESS_SECRET,
       );
     }
@@ -75,7 +75,19 @@ export class UserService {
   };
 
   static getAll = async () => {
-    return await UsersModel.findAll();
+    const users = await UsersModel.findAll();
+    return users.map((user) => {
+      const u = user.dataValues;
+      return {
+        id: u.id,
+        name: u.name,
+        email: u.email,
+        cpf: u.cpf,
+        isStudent: u.isStudent,
+        createdAt: u.createdAt,
+        updatedAt: u.updatedAt,
+      };
+    });
   };
 
   static create = async (data: Omit<User, "id">) => {
