@@ -1,8 +1,10 @@
 import { Table, Button } from "@chakra-ui/react";
+import { ReactNode } from "react";
 
 interface Action {
-  label: string;
-  onClick: (rowData?: Record<string, unknown>) => void;
+  label?: string;
+  element?: ReactNode;
+  onClick?: (rowData?: Record<string, unknown>) => void;
 }
 
 interface TableObjProps {
@@ -26,17 +28,23 @@ export const TableObj = ({ data, actions }: TableObjProps) => {
       return null;
     }
     return (
-      <Table.Cell key="actions">
-        {actions.map((action, index) => (
-          <Button
-            key={index}
-            onClick={() => action.onClick(item)}
-            size="sm"
-            variant="outline"
-          >
-            {action.label}
-          </Button>
-        ))}
+      <Table.Cell key="actions" display="flex" gapX={2}>
+        {actions.map((action, index) => {
+          if (action.element) {
+            return action.element;
+          }
+
+          return (
+            <Button
+              key={index}
+              onClick={() => action.onClick && action.onClick(item)}
+              size="sm"
+              variant="outline"
+            >
+              {action?.label}
+            </Button>
+          );
+        })}
       </Table.Cell>
     );
   };

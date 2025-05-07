@@ -1,12 +1,12 @@
 import { useState, useCallback } from "react";
 
 interface UseMutationOptions<TVariables, TData> {
-  onSuccess?: (data: TData, variables: TVariables) => void;
-  onError?: (error: Error, variables: TVariables) => void;
+  onSuccess?: (data: TData, variables?: TVariables) => void;
+  onError?: (error: Error, variables?: TVariables) => void;
 }
 
 export const useMutation = <TVariables, TData>(
-  mutationFn: (variables: TVariables) => Promise<TData>,
+  mutationFn: (variables?: TVariables) => Promise<TData>,
   options?: UseMutationOptions<TVariables, TData>,
 ) => {
   const [data, setData] = useState<TData | null>(null);
@@ -14,7 +14,7 @@ export const useMutation = <TVariables, TData>(
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const mutate = useCallback(
-    async (variables: TVariables) => {
+    async (variables?: TVariables) => {
       setIsLoading(true);
       setError(null);
       setData(null);

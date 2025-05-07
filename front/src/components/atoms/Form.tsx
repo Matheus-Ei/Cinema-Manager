@@ -91,7 +91,6 @@ export const FormObj = ({
           (field.type === "checkbox" ? false : "");
       }
     });
-    setFormData(initialData);
     setImagePreviews(initialImagePreviews);
 
     return () => {

@@ -57,13 +57,9 @@ export const ReusableDialog = ({
         placement={placement}
         motionPreset={motionPreset}
       >
-        <Dialog.Trigger asChild>
-          {triggerElement || (
-            <Button variant="outline" size="sm">
-              Open Dialog
-            </Button>
-          )}
-        </Dialog.Trigger>
+        {triggerElement && (
+          <Dialog.Trigger asChild>{triggerElement}</Dialog.Trigger>
+        )}
 
         {dialogContentElements}
       </Dialog.Root>
