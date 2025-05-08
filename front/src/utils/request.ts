@@ -8,7 +8,6 @@ type AxiosResponseType<T> = ReturnType<AxiosResponse<{ resource: T }>>;
 export class Request {
   private static backendUrl = process.env.NEXT_PUBLIC_BACK_URL as string;
 
-  // eslint-disable-next-line
   private static treatError = (error: AxiosError) => {
     if (error.response) {
       const { data } = error.response;

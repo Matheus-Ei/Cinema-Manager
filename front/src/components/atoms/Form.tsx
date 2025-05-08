@@ -2,11 +2,11 @@ import {
   Input,
   Button,
   VStack,
-  Select,
-  Checkbox,
   Textarea,
   Image,
   Box,
+  Checkbox,
+  CheckboxCheckedChangeDetails,
 } from "@chakra-ui/react";
 import {
   FormControl,
@@ -40,14 +40,17 @@ export interface FormField {
   defaultValue?: string | number | boolean | File;
   options?: FormFieldOption[];
   isRequired?: boolean;
+  // eslint-disable-next-line
   validation?: (value: any) => string | null;
   accept?: string;
 }
 
 interface FormObjProps {
   fields: FormField[];
+  // eslint-disable-next-line
   onSubmit: (formData: Record<string, any>) => void;
   submitButtonLabel?: string;
+  // eslint-disable-next-line
   initialValues?: Record<string, any>;
 }
 
@@ -57,6 +60,7 @@ export const FormObj = ({
   submitButtonLabel = "Submit",
   initialValues = {},
 }: FormObjProps) => {
+  // eslint-disable-next-line
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [imagePreviews, setImagePreviews] = useState<Record<string, string>>(
@@ -64,6 +68,7 @@ export const FormObj = ({
   );
 
   useEffect(() => {
+    // eslint-disable-next-line
     const initialData: Record<string, any> = {};
     const initialImagePreviews: Record<string, string> = {};
 
@@ -100,12 +105,14 @@ export const FormObj = ({
         }
       });
     };
+    // eslint-disable-next-line
   }, [fields]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => {
     const { name, type } = e.target;
+    // eslint-disable-next-line
     let inputValue: any;
 
     if (type === "checkbox") {
@@ -187,7 +194,8 @@ export const FormObj = ({
   };
 
   const renderField = (field: FormField) => {
-    const { name, label, type, placeholder, options, accept } = field;
+    const { name, label, type, placeholder, accept, isRequired } =
+      field;
 
     switch (type) {
       case "textarea":
@@ -200,33 +208,36 @@ export const FormObj = ({
           />
         );
 
-      case "select":
+      case "checkbox": {
         return (
-          <Select
+          <Checkbox.Root
             name={name}
-            placeholder={placeholder || "Select option"}
-            onChange={handleChange}
             id={name}
-          >
-            {options?.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </Select>
-        );
+            required={isRequired}
+            onCheckedChange={(
+              newCheckedState: CheckboxCheckedChangeDetails,
+            ) => {
+              const booleanChecked =
+                typeof newCheckedState.checked === "boolean"
+                  ? newCheckedState.checked
+                  : false;
+              const syntheticEvent = {
+                target: {
+                  name: name,
+                  type: "checkbox",
+                  checked: booleanChecked,
+                },
+              } as unknown as ChangeEvent<HTMLInputElement>;
 
-      case "checkbox":
-        return (
-          <Checkbox
-            name={name}
-            isChecked={!!value}
-            onChange={handleChange}
-            id={name}
+              handleChange(syntheticEvent);
+            }}
           >
-            {label}
-          </Checkbox>
+            <Checkbox.HiddenInput />
+            <Checkbox.Control />
+            {label && <Checkbox.Label>{label}</Checkbox.Label>}
+          </Checkbox.Root>
         );
+      }
 
       case "image":
         return (
@@ -238,22 +249,6 @@ export const FormObj = ({
               id={name}
               accept={accept || "image/*"}
               p={1.5}
-              sx={{
-                "::file-selector-button": {
-                  height: 10,
-                  paddingX: 4,
-                  paddingRight: 8,
-                  marginRight: 4,
-                  fontSize: "10pt",
-                  border: "none",
-                  borderRadius: "md",
-                  backgroundColor: "gray.100",
-                  cursor: "pointer",
-                  _hover: {
-                    backgroundColor: "gray.200",
-                  },
-                },
-              }}
             />
             {imagePreviews[name] && (
               <Image

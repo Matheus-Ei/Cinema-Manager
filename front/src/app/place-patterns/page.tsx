@@ -1,15 +1,14 @@
 "use client";
 
-import { CreateButton } from "@/components/atoms/CreateButton";
 import { Header } from "@/components/atoms/Header";
 import { TableObj } from "@/components/atoms/Table";
 import { useMutation } from "@/hooks/useMutation";
 import { useQuery } from "@/hooks/useQuery";
 import { useToggle } from "@/hooks/useToggle";
 import { Request } from "@/utils/request";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex } from "@chakra-ui/react";
 
-export default () => {
+const PlacePatterns = () => {
   const [updater, toggleUpdater] = useToggle(false);
 
   const { mutate: create } = useMutation(() => {
@@ -17,9 +16,9 @@ export default () => {
     return Request.post("places/patterns", {});
   });
 
-  const { mutate: remove } = useMutation((variables: { id: number }) => {
+  const { mutate: remove } = useMutation((variables: { id: number } | undefined) => {
     toggleUpdater();
-    return Request.delete(`places/patterns/${variables.id}`);
+    return Request.delete(`places/patterns/${variables?.id}`);
   });
 
   const { data } = useQuery("places/patterns", updater);
@@ -29,7 +28,7 @@ export default () => {
       <Header title="Place pattern" />
 
       <Flex gapX={4} mb={4}>
-        <CreateButton onClick={() => create({})}>Create</CreateButton>
+        <Button onClick={() => create({})}>Create</Button>
       </Flex>
 
       <TableObj
@@ -44,3 +43,5 @@ export default () => {
     </Box>
   );
 };
+
+export default PlacePatterns

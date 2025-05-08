@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   description: "To manage cinemas and movies easily",
 };
 
+// eslint-disable-next-line
 export default ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="en">

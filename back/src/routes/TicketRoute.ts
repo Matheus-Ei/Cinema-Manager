@@ -3,8 +3,7 @@ import { TicketController } from "../controllers/TicketController";
 
 export class TicketRoute {
   static init = (app: Application) => {
-    app.post("/tickets/buy", TicketController.buy);
-    app.post("/tickets/", TicketController.create);
+    app.post("/tickets/", TicketController.buy);
     app.patch("/tickets/:id", TicketController.update);
     app.delete("/tickets/:id", TicketController.destroy);
     app.get("/tickets/:id", TicketController.get);

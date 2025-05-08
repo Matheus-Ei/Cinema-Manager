@@ -4,7 +4,7 @@ import { FormField } from "@/components/atoms/Form";
 import { useState } from "react";
 import { Crud } from "@/components/organisms/crud";
 
-export default () => {
+const Users = () => {
   const [rowData, setRowData] = useState<Record<string, unknown>>({});
 
   const FIELDS: FormField[] = [
@@ -35,6 +35,12 @@ export default () => {
       type: "text",
       name: "password",
     },
+
+    {
+      label: "Is Student",
+      type: "checkbox",
+      name: "isStudent",
+    },
   ];
 
   return (
@@ -45,3 +51,5 @@ export default () => {
     />
   );
 };
+
+export default Users;

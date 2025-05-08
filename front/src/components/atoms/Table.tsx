@@ -63,7 +63,7 @@ export const TableObj = ({ data, actions }: TableObjProps) => {
   };
 
   if (!data || data.length === 0) {
-    return <p>Don't have any data to show</p>;
+    return <p>Don&apost have any data to show</p>;
   }
 
   return (

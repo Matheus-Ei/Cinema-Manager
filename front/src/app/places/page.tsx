@@ -4,13 +4,13 @@ import { FormField } from "@/components/atoms/Form";
 import { useState } from "react";
 import { Crud } from "@/components/organisms/crud";
 
-export default () => {
+const Places = () => {
   const [rowData, setRowData] = useState<Record<string, unknown>>({});
 
   const FIELDS: FormField[] = [
     {
       label: "Place pattern id",
-      type: "text",
+      type: "number",
       placeholder: String(rowData.placePatternId),
       name: "placePatternId",
     },
@@ -18,14 +18,14 @@ export default () => {
     {
       label: "Column",
       placeholder: String(rowData.column),
-      type: "text",
+      type: "number",
       name: "column",
     },
 
     {
       label: "Row",
       placeholder: String(rowData.row),
-      type: "text",
+      type: "number",
       name: "row",
     },
   ];
@@ -38,3 +38,5 @@ export default () => {
     />
   );
 };
+
+export default Places;

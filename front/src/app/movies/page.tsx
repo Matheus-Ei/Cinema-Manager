@@ -4,7 +4,7 @@ import { FormField } from "@/components/atoms/Form";
 import { Crud } from "@/components/organisms/crud";
 import { useState } from "react";
 
-export default () => {
+const Movies = () => {
   const [rowData, setRowData] = useState<Record<string, unknown>>({});
 
   const FIELDS: FormField[] = [
@@ -22,7 +22,7 @@ export default () => {
 
     {
       label: "Duration",
-      type: "text",
+      type: "number",
       name: "duration",
     },
 
@@ -41,3 +41,5 @@ export default () => {
     />
   );
 };
+
+export default Movies;

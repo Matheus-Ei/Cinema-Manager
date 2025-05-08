@@ -4,34 +4,34 @@ import { FormField } from "@/components/atoms/Form";
 import { useState } from "react";
 import { Crud } from "@/components/organisms/crud";
 
-export default () => {
+const Sessions = () => {
   const [rowData, setRowData] = useState<Record<string, unknown>>({});
 
   const FIELDS: FormField[] = [
     {
       label: "Movie id",
-      type: "text",
+      type: "number",
       placeholder: String(rowData.movieId),
       name: "movieId",
     },
 
     {
       label: "Room id",
-      type: "text",
+      type: "number",
       placeholder: String(rowData.roomId),
       name: "roomId",
     },
 
     {
       label: "Price",
-      type: "text",
+      type: "number",
       placeholder: String(rowData.price),
       name: "price",
     },
 
     {
       label: "Start date",
-      type: "text",
+      type: "date",
       placeholder: String(rowData.startDate),
       name: "startDate",
     },
@@ -45,3 +45,5 @@ export default () => {
     />
   );
 };
+
+export default Sessions;

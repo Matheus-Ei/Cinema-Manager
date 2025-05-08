@@ -7,7 +7,7 @@ import { Request } from "@/utils/request";
 import { Storage } from "@/utils/storage";
 import { Flex } from "@chakra-ui/react";
 
-export default () => {
+const Login = () => {
   const { mutate: login } = useMutation(async (formData) => {
     return Request.post(`users/auth`, formData as Record<string, unknown>)
       .then((res) => {
@@ -60,3 +60,5 @@ export default () => {
     </Flex>
   );
 };
+
+export default Login;

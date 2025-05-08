@@ -7,7 +7,7 @@ export class Storage {
     }
   };
 
-  static set = (key: string, value: string | Object) => {
+  static set = (key: string, value: string | object) => {
     if (typeof value === "object") {
       localStorage.setItem(key, JSON.stringify(value));
       return;
