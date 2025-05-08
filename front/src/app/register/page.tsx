@@ -10,8 +10,7 @@ const Register = () => {
       justifyContent="center"
       width="100vw"
       height="100vh"
-    >
-    </Flex>
+    ></Flex>
   );
 };
 

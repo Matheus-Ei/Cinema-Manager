@@ -5,9 +5,13 @@ import { toaster } from "@/components/ui/toaster";
 import { useMutation } from "@/hooks/useMutation";
 import { Request } from "@/utils/request";
 import { Storage } from "@/utils/storage";
-import { Flex } from "@chakra-ui/react";
+import { Button, Flex, Input } from "@chakra-ui/react";
+import { useState } from "react";
 
 const Login = () => {
+  const [email, setEmail] = useState<string | null>(null);
+  const [password, setPassword] = useState<string | null>(null);
+
   const { mutate: login } = useMutation(async (formData) => {
     return Request.post(`users/auth`, formData as Record<string, unknown>)
       .then((res) => {
@@ -22,6 +26,22 @@ const Login = () => {
       .catch(() => {
         toaster.create({
           description: "Error in the login",
+          type: "error",
+        });
+      });
+  });
+
+  const { mutate: recoverPassword } = useMutation(async (body) => {
+    return Request.post(`users/recover`, body as Record<string, unknown>)
+      .then(() => {
+        toaster.create({
+          description: "Success sending the code, verify your email",
+          type: "success",
+        });
+      })
+      .catch(() => {
+        toaster.create({
+          description: "Error sending the code",
           type: "error",
         });
       });
@@ -51,12 +71,33 @@ const Login = () => {
       width="100vw"
       height="100vh"
     >
-      <h1
-        style={{ marginBottom: "10px", fontWeight: "bold", fontSize: "1.5rem" }}
-      >
-        Login
-      </h1>
-      <FormObj submitButtonLabel="Login" fields={FIELDS} onSubmit={login} />
+      <Flex direction="column" width="25vw" gapY={2}>
+        <h1
+          style={{
+            marginBottom: "10px",
+            fontWeight: "bold",
+            fontSize: "1.5rem",
+          }}
+        >
+          Login
+        </h1>
+
+        <Input
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="Your email..."
+        />
+
+        <Input
+          onChange={(event) => setPassword(event.target.value)}
+          placeholder="The new password..."
+          marginBottom={4}
+        />
+
+        <Button onClick={() => login({ email, password })}>Login</Button>
+        <Button onClick={() => recoverPassword({ email })}>
+          Recover password
+        </Button>
+      </Flex>
     </Flex>
   );
 };

@@ -194,8 +194,7 @@ export const FormObj = ({
   };
 
   const renderField = (field: FormField) => {
-    const { name, label, type, placeholder, accept, isRequired } =
-      field;
+    const { name, label, type, placeholder, accept, isRequired } = field;
 
     switch (type) {
       case "textarea":

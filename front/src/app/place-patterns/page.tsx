@@ -16,10 +16,12 @@ const PlacePatterns = () => {
     return Request.post("places/patterns", {});
   });
 
-  const { mutate: remove } = useMutation((variables: { id: number } | undefined) => {
-    toggleUpdater();
-    return Request.delete(`places/patterns/${variables?.id}`);
-  });
+  const { mutate: remove } = useMutation(
+    (variables: { id: number } | undefined) => {
+      toggleUpdater();
+      return Request.delete(`places/patterns/${variables?.id}`);
+    },
+  );
 
   const { data } = useQuery("places/patterns", updater);
 
@@ -44,4 +46,4 @@ const PlacePatterns = () => {
   );
 };
 
-export default PlacePatterns
+export default PlacePatterns;
