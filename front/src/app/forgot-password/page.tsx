@@ -1,5 +1,6 @@
 "use client";
 
+import { Card } from "@/components/atoms/Card";
 import { toaster } from "@/components/ui/toaster";
 import { useMutation } from "@/hooks/useMutation";
 import { Request } from "@/utils/request";
@@ -12,7 +13,11 @@ const ForgotPassword = () => {
   const [password, setPassword] = useState<string | null>(null);
 
   const { mutate: verify } = useMutation(async () => {
-    return Request.post(`users/auth`, { code, newPassword: password, email })
+    return Request.post(`users/password`, {
+      code,
+      newPassword: password,
+      email,
+    })
       .then(() => {
         toaster.create({
           description: "Success changing the password",
@@ -35,24 +40,38 @@ const ForgotPassword = () => {
       width="100vw"
       height="100vh"
     >
-      <Flex direction="column" width="25vw" gapY={2}>
+      <Card>
+        <h1
+          style={{
+            marginBottom: "10px",
+            fontWeight: "bold",
+            fontSize: "1.5rem",
+          }}
+        >
+          Recover password
+        </h1>
+
         <Input
           onChange={(event) => setEmail(event.target.value)}
           placeholder="Your email..."
+          width="15rem"
         />
 
         <Input
           onChange={(event) => setPassword(event.target.value)}
           placeholder="The new password..."
+          width="15rem"
         />
 
         <Input
           onChange={(event) => setCode(event.target.value)}
           placeholder="Code recived..."
+          width="15rem"
+          mb={5}
         />
 
         <Button onClick={() => verify()}>Verify</Button>
-      </Flex>
+      </Card>
     </Flex>
   );
 };

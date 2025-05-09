@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { ENV } from "../core/enviroment";
 
 export class Email {
   private smtp: nodemailer.Transporter;
@@ -9,8 +10,8 @@ export class Email {
       port: 587,
       secure: false,
       auth: {
-        user: "matheus.petri.eickhoff@unochapeco.edu.br",
-        pass: "efjb nwaj gvck vubk",
+        user: ENV.EMAIL_USER,
+        pass: ENV.EMAIL_PASSWORD,
       },
     });
   }

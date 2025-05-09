@@ -27,7 +27,7 @@ export class UserService {
     await email.send({
       to: userEmail,
       subject: "Recovery your account",
-      html: `<p>Your recovery code is ${code}</p>`,
+      html: `<p>Your recovery code is <b>${code}</b></p> <a href='http://localhost:3000/forgot-password'>Click here to change your password</a>`,
     });
   };
 

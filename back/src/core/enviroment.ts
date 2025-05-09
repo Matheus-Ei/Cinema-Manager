@@ -17,4 +17,7 @@ export const ENV = {
   // Server
   SERVER_PORT: getEnv<number>("SERVER_PORT"),
   NODE_ENV: getEnv<"development" | "production" | "test">("NODE_ENV"),
+
+  EMAIL_USER: getEnv<string>("EMAIL_USER"),
+  EMAIL_PASSWORD: getEnv<string>("EMAIL_PASSWORD"),
 };

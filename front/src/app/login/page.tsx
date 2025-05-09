@@ -1,6 +1,6 @@
 "use client";
 
-import { FormField, FormObj } from "@/components/atoms/Form";
+import { Card } from "@/components/atoms/Card";
 import { toaster } from "@/components/ui/toaster";
 import { useMutation } from "@/hooks/useMutation";
 import { Request } from "@/utils/request";
@@ -47,22 +47,6 @@ const Login = () => {
       });
   });
 
-  const FIELDS: FormField[] = [
-    {
-      label: "Email",
-      type: "email",
-      placeholder: "Your email...",
-      name: "email",
-    },
-
-    {
-      label: "Password",
-      type: "password",
-      placeholder: "Your password...",
-      name: "password",
-    },
-  ];
-
   return (
     <Flex
       direction="column"
@@ -71,7 +55,7 @@ const Login = () => {
       width="100vw"
       height="100vh"
     >
-      <Flex direction="column" width="25vw" gapY={2}>
+      <Card>
         <h1
           style={{
             marginBottom: "10px",
@@ -85,19 +69,24 @@ const Login = () => {
         <Input
           onChange={(event) => setEmail(event.target.value)}
           placeholder="Your email..."
+          width="15rem"
         />
 
         <Input
           onChange={(event) => setPassword(event.target.value)}
           placeholder="The new password..."
           marginBottom={4}
+          width="15rem"
+          mb={5}
         />
 
-        <Button onClick={() => login({ email, password })}>Login</Button>
-        <Button onClick={() => recoverPassword({ email })}>
+        <Button onClick={() => login({ email, password })} variant="surface">
+          Login
+        </Button>
+        <Button onClick={() => recoverPassword({ email })} variant="plain">
           Recover password
         </Button>
-      </Flex>
+      </Card>
     </Flex>
   );
 };

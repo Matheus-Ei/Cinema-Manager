@@ -1,3 +1,4 @@
+import { Button } from "@chakra-ui/react";
 import Link from "next/link";
 
 interface LinkButtonProps {
@@ -6,5 +7,9 @@ interface LinkButtonProps {
 }
 
 export const LinkButton = ({ text, href }: LinkButtonProps) => {
-  return <Link href={href}>{text}</Link>;
+  return (
+    <Button variant="surface" width="7rem" height="2rem">
+      <Link href={href}>{text}</Link>
+    </Button>
+  );
 };
